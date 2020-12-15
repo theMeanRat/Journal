@@ -1,0 +1,40 @@
+{
+  "name": "myvisions/journal",
+  "description": "For writing articles",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Maarten Baars",
+      "email": "mbaars@myvisions.nl"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MyVisions\\Journal\\": "src",
+      "MyVisions\\Journal\\Database\\Factories\\": "database/factories"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MyVisions\\Journal\\Tests\\": "tests"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "MyVisions\\Journal\\JournalServiceProvider"
+      ],
+      "aliases": {
+        "Calculator": "MyVisions\\Journal\\Facades\\Article"
+      }
+    }
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0",
+    "phpunit/phpunit": "^9.5"
+  },
+  "require": {
+    "erusev/parsedown": "^1.7"
+  }
+}
