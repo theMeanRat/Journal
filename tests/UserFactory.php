@@ -2,6 +2,7 @@
 
 namespace MyVisions\Journal\Tests;
 
+use Illuminate\Support\Str;
 use Orchestra\Testbench\Factories\UserFactory as TestbenchUserFactory;
 
 class UserFactory extends TestbenchUserFactory
@@ -14,9 +15,8 @@ class UserFactory extends TestbenchUserFactory
             'username' => $this->faker->userName,
             'email' => $this->faker->unique()->safeEmail,
             'email_verified_at' => now(),
-            'user_type' => 'Fake/User',
             'password' => bcrypt('password'),
-            'remember_token' => \Illuminate\Support\Str::random(10)
+            'remember_token' => Str::random(10)
         ];
     }
 }

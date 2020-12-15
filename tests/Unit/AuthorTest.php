@@ -2,6 +2,7 @@
 
 namespace MyVisions\Journal\Tests\Unit;
 
+use DateTime;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use MyVisions\Journal\Models\Author;
 use MyVisions\Journal\Tests\TestCase;
@@ -12,34 +13,38 @@ class AuthorTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function an_author_belongs_to_a_user()
+    public function an_author_belongs_to_a_user_and_has_many_articles()
     {
         $user = User::factory()->create();
-        $user->autdhor()->create([
+
+        $user->author()->create([
             'first_name' => 'Fake first name',
             'last_name' => 'Fake last name',
             'email' => 'fake@email.nl'
         ]);
 
+        $now = new DateTime();
+
+        $user->author()->first()->articles()->create([
+            'title' => 'My first fake article',
+            'subtitle' => 'My first fake subtitle',
+            'introduction' => 'My first introduction of this fake article',
+            'content'  => 'The content of this fake article',
+            'main_image' => '/fake/image/path',
+            'date_published' => $now->format('Y-m-d H:i:s'),
+            'date_published_to' => $now->format('Y-m-d H:i:s')
+        ]);
+
         $this->assertCount(1, User::all());
 
-        $author = $user->author();
-        echo $author->first_name;
-        die();
         // Using tap() to alias $user->author() to $author
         // To provide cleaner and grouped assertions
-        tap($user->author(), function ($author) use ($user) {
+        tap($user->author()->first(), function ($author) use ($user) {
             $this->assertEquals('Fake first name', $author->first_name);
             $this->assertEquals('Fake last name', $author->last_name);
+            $this->assertCount(1, $author->articles);
             $this->assertTrue($author->user->is($user));
         });
-    }
-
-    /** @test */
-    function an_author_has_a_user_type()
-    {
-        $user = User::factory()->create(['user_type' => 'Fake\User']);
-        $this->assertEquals('Fake\User', $user->user_type);
     }
 
     /** @test */
