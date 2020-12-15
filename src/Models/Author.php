@@ -21,4 +21,9 @@ class Author extends Model
     {
         return $this->morphTo();
     }
+
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
 }

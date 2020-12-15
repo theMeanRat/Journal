@@ -4,6 +4,7 @@ namespace MyVisions\Journal\Database\Factories;
 
 use MyVisions\Journal\Models\Article;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use MyVisions\Journal\Models\Author;
 
 class ArticleFactory extends Factory
 {
@@ -12,6 +13,8 @@ class ArticleFactory extends Factory
 
     public function definition()
     {
+        $author = Author::factory()->create();
+
         return [
             'title'             => $this->faker->words(3, true),
             'subtitle'          => $this->faker->words(5, true),
@@ -20,7 +23,7 @@ class ArticleFactory extends Factory
             'main_image'        => '/path/to/image',
             'date_published'    => $this->faker->dateTime(),
             'date_published_to' => $this->faker->dateTime(),
-            'author_id'         => 999,
+            'author_id'         => $author->id,
         ];
     }
 }
