@@ -10,7 +10,7 @@ class ArticleController extends Controller
     {
         $articles = Article::all();
 
-        return view('journal');
+        return view('journal::articles.index', compact('articles'));
     }
 
     public function show(Article $article)
@@ -34,11 +34,12 @@ class ArticleController extends Controller
 
     public function validateArticle()
     {
-        $validatedAttributes = request([
+        $validatedAttributes = request()->validate([
             'title'         => 'required',
             'subtitle'      => 'required',
             'introduction'  => 'required',
             'content'       => 'required',
+            'main_image'    => 'required',
             'slug'          => 'required'
         ]);
 

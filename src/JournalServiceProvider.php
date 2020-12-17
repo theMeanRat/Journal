@@ -4,6 +4,7 @@ namespace MyVisions\Journal;
 
 use Illuminate\Support\ServiceProvider;
 use MyVisions\Journal\Console\InstallJournal;
+use Illuminate\Support\Facades\Route;
 
 class JournalServiceProvider extends ServiceProvider
 {

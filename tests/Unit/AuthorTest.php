@@ -31,6 +31,8 @@ class AuthorTest extends TestCase
             'introduction' => 'My first introduction of this fake article',
             'content'  => 'The content of this fake article',
             'main_image' => '/fake/image/path',
+            'active' => true,
+            'slug' => 'my-first-fake-article',
             'date_published' => $now->format('Y-m-d H:i:s'),
             'date_published_to' => $now->format('Y-m-d H:i:s')
         ]);

@@ -16,16 +16,21 @@ class CreateArticleTest extends TestCase
         // Of course we start with no articles created
         $this->assertCount(0, Article::all());
 
-        $author = User::factory()->create();
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
 
         // create an article
-        $response = $this->actingAs($author)->article(route('articles.store'), [
+        $response = $this->actingAs($author->user)->post(route('articles.store'), [
             'title' => 'My first fake title',
             'subtitle' => 'My first fake subtitle',
             'introduction' => 'My first fake introduction',
             'content' => 'My first fake content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'author_id' => $author->id,
             'slug' => 'my-first-fake-title'
         ]);
 
@@ -33,12 +38,12 @@ class CreateArticleTest extends TestCase
         $this->assertCount(1, Article::all());
 
         tap(Article::first(), function ($article) use ($response, $author) {
-            $this->assertEquals('My first fake title', $article - title);
+            $this->assertEquals('My first fake title', $article->title);
             $this->assertEquals('My first fake subtitle', $article->subtitle);
             $this->assertEquals('My first fake introduction', $article->introduction);
             $this->assertEquals('My first fake content', $article->content);
             $this->assertEquals('fake/image/path', $article->main_image);
-            $this->assertTrue($article->active);
+            $this->assertEquals(1, $article->active);
             $this->assertEquals('my-first-fake-title', $article->slug);
             $this->assertTrue($article->author->is($author));
             $response->assertRedirect(route('articles.show', $article));
@@ -48,15 +53,20 @@ class CreateArticleTest extends TestCase
     /** @test */
     public function an_article_requires_a_title()
     {
-        $author = User::factory()->create();
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
 
-        $this->actingAs($author)->article(route('articles.store'), [
+        $this->actingAs($author->user)->post(route('articles.store'), [
             'title' => '',
             'subtitle' => 'My first fake subtitle',
             'introduction' => 'My first fake introduction',
             'content' => 'My first fake content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'author_id' => $author->id,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('title');
     }
@@ -64,15 +74,20 @@ class CreateArticleTest extends TestCase
     /** @test */
     public function an_article_requires_a_subtitle()
     {
-        $author = User::factory()->create();
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
 
-        $this->actingAs($author)->article(route('articles.store'), [
+        $this->actingAs($author->user)->post(route('articles.store'), [
             'title' => 'My first fake title',
             'subtitle' => '',
             'introduction' => 'My first fake introduction',
             'content' => 'My first fake content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'author_id' => $author->id,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('subtitle');
     }
@@ -80,15 +95,20 @@ class CreateArticleTest extends TestCase
     /** @test */
     public function an_article_requires_an_introduction()
     {
-        $author = User::factory()->create();
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
 
-        $this->actingAs($author)->article(route('articles.store'), [
+        $this->actingAs($author->user)->post(route('articles.store'), [
             'title' => 'My first fake title',
             'subtitle' => 'My first fake subtitle',
             'introduction' => '',
             'content' => 'My first fake content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'author_id' => $author->id,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('introduction');
     }
@@ -96,15 +116,20 @@ class CreateArticleTest extends TestCase
     /** @test */
     public function an_article_requires_content()
     {
-        $author = User::factory()->create();
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
 
-        $this->actingAs($author)->article(route('articles.store'), [
+        $this->actingAs($author->user)->post(route('articles.store'), [
             'title' => 'My first fake title',
             'subtitle' => 'My first fake subtitle',
             'introduction' => 'My first fake introduction',
             'content' => '',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'author_id' => $author->id,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('content');
     }
@@ -112,15 +137,20 @@ class CreateArticleTest extends TestCase
     /** @test */
     public function an_article_requires_a_main_image()
     {
-        $author = User::factory()->create();
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
 
-        $this->actingAs($author)->article(route('articles.store'), [
+        $this->actingAs($author->user)->post(route('articles.store'), [
             'title' => 'My first fake title',
             'subtitle' => 'My first fake subtitle',
             'introduction' => 'My first fake introduction',
             'content' => 'My first fake content',
             'main_image' => '',
             'active' => true,
+            'author_id' => $author->id,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('main_image');
     }
@@ -128,15 +158,20 @@ class CreateArticleTest extends TestCase
     /** @test */
     public function an_article_requires_a_slug()
     {
-        $author = User::factory()->create();
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
 
-        $this->actingAs($author)->article(route('articles.store'), [
+        $this->actingAs($author->user)->post(route('articles.store'), [
             'title' => 'My first fake title',
             'subtitle' => 'My first fake subtitle',
             'introduction' => 'My first fake introduction',
             'content' => 'My first fake content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'author_id' => $author->id,
             'slug' => ''
         ])->assertSessionHasErrors('slug');
     }
@@ -147,7 +182,7 @@ class CreateArticleTest extends TestCase
         // We're starting from an unauthenticated state
         $this->assertFalse(auth()->check());
 
-        $this->article(route('articles.store'), [
+        $this->post(route('articles.store'), [
             'title' => 'My first fake title',
             'subtitle' => 'My first fake subtitle',
             'introduction' => 'My first fake introduction',
@@ -168,6 +203,7 @@ class CreateArticleTest extends TestCase
             'content' => 'My first fake content 1',
             'main_image' => 'fake/image/path1',
             'active' => true,
+            'author_id' => 99,
             'slug' => 'my-first-fake-title-1'
         ]);
 
@@ -178,6 +214,7 @@ class CreateArticleTest extends TestCase
             'content' => 'My first fake content 2',
             'main_image' => 'fake/image/path2',
             'active' => true,
+            'author_id' => 99,
             'slug' => 'my-first-fake-title-2'
         ]);
 
@@ -188,8 +225,11 @@ class CreateArticleTest extends TestCase
             'content' => 'My first fake content 3',
             'main_image' => 'fake/image/path3',
             'active' => true,
+            'author_id' => 99,
             'slug' => 'my-first-fake-title-3'
         ]);
+
+        $this->assertCount(3, Article::all());
 
         // We expect them to all show up
         // with their title on the index route
@@ -210,6 +250,7 @@ class CreateArticleTest extends TestCase
             'content' => 'My first fake content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'author_id' => 99,
             'slug' => 'my-first-fake-title'
         ]);
 

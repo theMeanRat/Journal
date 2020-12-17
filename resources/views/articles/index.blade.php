@@ -3,8 +3,8 @@
 
 <h1>Showing all articles</h1>
 
-@forelse ($articles as $article)
-    <li>{{ $article-title }}</li>
+@forelse($articles as $article)
+    <li>{{ $article->title }}</li>
 @empty
     <p>No articles found</p>
 @endforelse
