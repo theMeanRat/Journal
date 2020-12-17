@@ -21,8 +21,10 @@ class CreateArticlesTable extends Migration
             $table->text('introduction');
             $table->text('content');
             $table->string('main_image');
-            $table->dateTime('date_published');
-            $table->dateTime('date_published_to');
+            $table->boolean('active');
+            $table->string('slug');
+            $table->dateTime('date_published')->nullable();
+            $table->dateTime('date_published_to')->nullable();
             $table->timestamps();
 
             // foreign keys
