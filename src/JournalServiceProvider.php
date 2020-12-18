@@ -23,7 +23,7 @@ class JournalServiceProvider extends ServiceProvider
         $this->registerRoutes();
 
         // load views
-        $this->loadVIewsFrom(__DIR__.'/../resources/views', 'journal');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'journal');
 
         // Register the command if we are using the application via the CLI
         if ($this->app->runningInConsole()) {
@@ -33,7 +33,7 @@ class JournalServiceProvider extends ServiceProvider
                __DIR__.'/../resources/views' => resource_path('views/vendor/journal')
             ], 'views');
 
-            // Pubish assets (js and css)
+            // Publish assets (js and css)
             $this->publishes([
                 __DIR__.'/../resources/assets' => public_path('journal'),
             ], 'assets');

@@ -3,12 +3,43 @@
 namespace MyVisions\Journal\Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Event;
 use MyVisions\Journal\Models\Article;
+use MyVisions\Journal\Events\ArticleWasCreated;
 use MyVisions\Journal\Tests\TestCase;
 use MyVisions\Journal\Tests\User;
 
 class CreateArticleTest extends TestCase
 {
+
+    /** @test */
+    public function an_event_is_emitted_when_a_new_article_was_created()
+    {
+        Event::fake();
+
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
+
+        $this->actingAs($author->user)->post(route('articles.store'), [
+            'title' => 'My first fake title',
+            'subtitle' => 'My first fake subtitle',
+            'introduction' => 'My first fake introduction',
+            'content' => 'My first fake content',
+            'main_image' => 'fake/image/path',
+            'active' => true,
+            'author_id' => $author->id,
+            'slug' => 'my-first-fake-title'
+        ]);
+
+        $article = Article::first();
+
+        Event::assertDispatched(ArticleWasCreated::class, function ($event) use ($article) {
+            return $event->article->id === $article->id;
+        });
+    }
 
     /** @test */
     public function authenticated_users_can_create_an_article()

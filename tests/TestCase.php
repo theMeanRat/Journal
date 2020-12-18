@@ -3,8 +3,9 @@
 namespace MyVisions\Journal\Tests;
 
 use MyVisions\Journal\JournalServiceProvider;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-class TestCase extends \Orchestra\Testbench\TestCase
+class TestCase extends OrchestraTestCase
 {
 
     public function setUp(): void

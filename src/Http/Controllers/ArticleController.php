@@ -2,6 +2,7 @@
 
 namespace MyVisions\Journal\Http\Controllers;
 
+use MyVisions\Journal\Events\ArticleWasCreated;
 use MyVisions\Journal\Models\Article;
 
 class ArticleController extends Controller
@@ -28,6 +29,9 @@ class ArticleController extends Controller
         // Creating an article with the author object results in the article linked to the author.
         $author = auth()->user()->author;
         $article = $author->articles()->create($this->validateArticle());
+
+        // Fire the event that an article was created
+        event(new ArticleWasCreated($article));
 
         return redirect(route('articles.show', $article));
     }
