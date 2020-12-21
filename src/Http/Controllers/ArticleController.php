@@ -7,6 +7,11 @@ use MyVisions\Journal\Models\Article;
 
 class ArticleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('capitalize');
+    }
+
     public function index()
     {
         $articles = Article::all();

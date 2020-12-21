@@ -289,4 +289,29 @@ class CreateArticleTest extends TestCase
             ->assertSee('My first fake title')
             ->assertSee('My first fake content');
     }
+
+    /** @test */
+    public function creating_an_article_will_capitalize_the_title()
+    {
+        $author = User::factory()->create()->author()->create([
+            'first_name' => 'Fake first name',
+            'last_name' => 'Fake last name',
+            'email' => 'fake@email.nl'
+        ]);
+
+        $this->actingAs($author->user)->post(route('articles.store'), [
+            'title' => 'some title that was not capitalized',
+            'subtitle' => 'My first fake subtitle',
+            'introduction' => 'My first fake introduction',
+            'content' => 'My first fake content',
+            'main_image' => 'fake/image/path',
+            'active' => true,
+            'author_id' => $author->id,
+            'slug' => 'my-first-fake-title'
+        ]);
+
+        $article = Article::first();
+
+        $this->assertEquals('Some title that was not capitalized', $article->title);
+    }
 }

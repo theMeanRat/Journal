@@ -3,8 +3,10 @@
 namespace MyVisions\Journal;
 
 use Illuminate\Support\ServiceProvider;
-use MyVisions\Journal\Console\InstallJournal;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
+use MyVisions\Journal\Console\InstallJournal;
+use MyVisions\Journal\Http\Middleware\CapitalizeTitle;
 
 class JournalServiceProvider extends ServiceProvider
 {
@@ -24,6 +26,11 @@ class JournalServiceProvider extends ServiceProvider
 
         // load views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'journal');
+
+        // Register a route specific Middleware
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('capitalize', CapitalizeTitle::class);
+        $router->pushMiddlewareToGroup('web', CapitalizeTitle::class);
 
         // Register the command if we are using the application via the CLI
         if ($this->app->runningInConsole()) {
