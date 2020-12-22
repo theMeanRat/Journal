@@ -31,8 +31,11 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ]);
+
+        $this->assertCount(1, Article::all());
 
         $article = Article::first();
 
@@ -62,6 +65,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ]);
 
@@ -98,6 +102,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('title');
     }
@@ -119,6 +124,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('subtitle');
     }
@@ -140,6 +146,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('introduction');
     }
@@ -161,6 +168,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('content');
     }
@@ -182,6 +190,7 @@ class CreateArticleTest extends TestCase
             'main_image' => '',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ])->assertSessionHasErrors('main_image');
     }
@@ -203,6 +212,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => ''
         ])->assertSessionHasErrors('slug');
     }
@@ -220,6 +230,7 @@ class CreateArticleTest extends TestCase
             'content' => 'My first fake content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ])->assertForbidden();
     }
@@ -235,6 +246,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path1',
             'active' => true,
             'author_id' => 99,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title-1'
         ]);
 
@@ -246,6 +258,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path2',
             'active' => true,
             'author_id' => 99,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title-2'
         ]);
 
@@ -257,6 +270,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path3',
             'active' => true,
             'author_id' => 99,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title-3'
         ]);
 
@@ -282,6 +296,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 99,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ]);
 
@@ -307,6 +322,7 @@ class CreateArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => $author->id,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ]);
 

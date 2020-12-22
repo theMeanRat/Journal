@@ -33,6 +33,7 @@ class AuthorTest extends TestCase
             'main_image' => '/fake/image/path',
             'active' => true,
             'slug' => 'my-first-fake-article',
+            'article_category_id' => 999,
             'date_published' => $now->format('Y-m-d H:i:s'),
             'date_published_to' => $now->format('Y-m-d H:i:s')
         ]);

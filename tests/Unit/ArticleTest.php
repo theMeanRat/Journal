@@ -21,6 +21,7 @@ class ArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 999,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ]);
 
@@ -38,6 +39,7 @@ class ArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 999,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title',
             'title' => 'Fake Title'
         ]);
@@ -54,6 +56,7 @@ class ArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 999,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title',
             'subtitle' => 'Fake Subtitle'
         ]);
@@ -70,6 +73,7 @@ class ArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 999,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title',
             'introduction' => 'Fake Introduction'
         ]);
@@ -86,6 +90,7 @@ class ArticleTest extends TestCase
             'content' => 'Fake Content',
             'main_image' => 'fake/image/path',
             'active' => true,
+            'article_category_id' => 999,
             'author_id' => 999,
             'slug' => 'my-first-fake-title'
         ]);
@@ -103,6 +108,7 @@ class ArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 999,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title'
         ]);
         $this->assertEquals('fake/image/path', $article->main_image);
@@ -121,6 +127,7 @@ class ArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 999,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title',
             'date_published' => $datetime->format("Y-m-d H:i:s")]);
         $this->assertEquals($datetime->format("Y-m-d H:i:s"), $article->date_published);
@@ -139,6 +146,7 @@ class ArticleTest extends TestCase
             'main_image' => 'fake/image/path',
             'active' => true,
             'author_id' => 999,
+            'article_category_id' => 999,
             'slug' => 'my-first-fake-title',
             'date_published_to' => $datetime->format("Y-m-d H:i:s")]);
         $this->assertEquals($datetime->format("Y-m-d H:i:s"), $article->date_published_to);

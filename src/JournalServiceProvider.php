@@ -46,6 +46,13 @@ class JournalServiceProvider extends ServiceProvider
             ], 'assets');
 
             // Publishing migrations
+            if (! class_exists('CreateArticlesCategoriesTable')) {
+                $this->publishes([
+                    __DIR__ . '/../database/migrations/create_article_categories_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_article_categories_table.php'),
+                    // you can add any number of migrations here
+                ], 'migrations');
+            }
+
             if (! class_exists('CreateArticlesTable')) {
                 $this->publishes([
                     __DIR__ . '/../database/migrations/create_articles_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_articles_table.php'),

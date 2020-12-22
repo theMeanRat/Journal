@@ -22,6 +22,11 @@ class Article extends Model
         return $this->belongsTo(Author::class);
     }
 
+    public function articleCategory()
+    {
+        return $this->belongsTo(ArticleCategory::class);
+    }
+
     public function getRouteKeyName()
     {
         return 'slug';

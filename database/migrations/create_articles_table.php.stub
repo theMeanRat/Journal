@@ -16,6 +16,7 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('article_category_id');
             $table->string('title');
             $table->string('subtitle');
             $table->text('introduction');
@@ -28,7 +29,8 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
 
             // foreign keys
-            //$table->foreign('author_id')->references('id')->on('authors');
+            $table->foreign('author_id')->references('id')->on('authors');
+            $table->foreign('article_category_id')->references('id')->on('article_categories');
         });
     }
 

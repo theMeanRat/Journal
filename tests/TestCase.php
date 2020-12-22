@@ -24,11 +24,13 @@ class TestCase extends OrchestraTestCase
     protected function getEnvironmentSetUp($app)
     {
         // import the Tables class from the migration
+        include_once __DIR__ . '/../database/migrations/create_article_categories_table.php.stub';
         include_once __DIR__ . '/../database/migrations/create_articles_table.php.stub';
         include_once __DIR__ . '/../database/migrations/create_authors_table.php.stub';
         include_once __DIR__ . '/../database/migrations/create_users_table.php.stub';
 
         // run the up() method of that migration class
+        (new \CreateArticleCategoriesTable)->up();
         (new \CreateArticlesTable)->up();
         (new \CreateAuthorsTable)->up();
         (new \CreateUsersTable)->up();

@@ -28,7 +28,7 @@ class ArticleController extends Controller
     {
         // We need to me authenticated to write and store and article.
         if (! auth()->check()) {
-            abort(403, 'Only authenticated authors can create new artilces.');
+            abort(403, 'Only authenticated authors can create new articles.');
         }
 
         // Creating an article with the author object results in the article linked to the author.
@@ -44,12 +44,13 @@ class ArticleController extends Controller
     public function validateArticle()
     {
         $validatedAttributes = request()->validate([
-            'title'         => 'required',
-            'subtitle'      => 'required',
-            'introduction'  => 'required',
-            'content'       => 'required',
-            'main_image'    => 'required',
-            'slug'          => 'required'
+            'title'               => 'required',
+            'subtitle'            => 'required',
+            'introduction'        => 'required',
+            'content'             => 'required',
+            'main_image'          => 'required',
+            'article_category_id' => 'required',
+            'slug'                => 'required'
         ]);
 
         $validatedAttributes['active'] = (request('active') ? true : false);
