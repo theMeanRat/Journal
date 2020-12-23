@@ -23,7 +23,7 @@ class CreateArticlesTable extends Migration
             $table->text('content');
             $table->string('main_image');
             $table->boolean('active');
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->dateTime('date_published')->nullable();
             $table->dateTime('date_published_to')->nullable();
             $table->timestamps();
