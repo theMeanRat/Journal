@@ -29,7 +29,6 @@ class CreateArticlesTable extends Migration
             $table->timestamps();
 
             // foreign keys
-            $table->foreign('author_id')->references('id')->on('authors');
             $table->foreign('article_category_id')->references('id')->on('article_categories');
         });
     }
