@@ -63,7 +63,7 @@ class JournalServiceProvider extends ServiceProvider
             if (! class_exists('CreateAuthorsTable')) {
                 $this->publishes([
                     __DIR__ . '/../database/migrations/create_authors_table.php.stub' => database_path('migrations/' . date('Y_m-d-His', time()) . '_create_authors_table.php'),
-                ]);
+                ], 'migrations');
             }
 
             // Publishing config file
