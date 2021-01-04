@@ -27,9 +27,6 @@ class JournalServiceProvider extends ServiceProvider
         // load views
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'journal');
 
-        // load migrations
-        $this->loadMigrationsFrom(__DIR__.'/../migrations/');
-
         // Register a route specific Middleware
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('capitalize', CapitalizeTitle::class);
