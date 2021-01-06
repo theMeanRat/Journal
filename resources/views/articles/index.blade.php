@@ -1,10 +1,35 @@
-<script src="{{ asset('journal/js/app.js') }}"></script>
-<link href="{{ asset('journal/css/app.css') }}" rel="stylesheet" />
+@extends('layouts.master')
 
-<h1>Showing all articles</h1>
+@section('content')
+    <div class="col-start-2 col-span-3">
+        <h1>Artikelen</h1>
+    </div>
+    <div class="col-start-2 col-span-3">
+        @forelse($articles as $article)
+            @if($loop->index === 0)
+                <table class="table-auto">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Subtitle</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @endif
 
-@forelse($articles as $article)
-    <li>{{ $article->title }}</li>
-@empty
-    <p>No articles found</p>
-@endforelse
+                    <tr>
+                        <td>{{ $article->id }}</td>
+                        <td>{{ $article->title }}</td>
+                        <td>{{ $article->subtitle }}</td>
+                    </tr>
+
+                    @if($loop->last)
+                    </tbody>
+                </table>
+            @endif
+        @empty
+            Geen artikelen gevonden
+        @endforelse
+    </div>
+@endsection
