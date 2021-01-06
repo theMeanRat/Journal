@@ -48,7 +48,7 @@ class ArticleController extends Controller
             abort(403, 'Only authenticated authors can edit articles.');
         }
 
-        return view('articles.edit', compact('article'));
+        return view('journal::articles.edit', compact('article'));
     }
 
     public function add()
@@ -58,7 +58,7 @@ class ArticleController extends Controller
             abort(403, 'Only authenticated authors can create new articles.');
         }
 
-        return view('articles.edit');
+        return view('journal::articles.edit');
     }
 
     public function update(Article $article)
