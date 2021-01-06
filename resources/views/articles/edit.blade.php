@@ -41,6 +41,10 @@
             <input id="slug" type="text" class="text" name="slug" value="" />
         </div>
 
+        <div class="form_input_container col-start-2 col-span-3">
+            <button class="button" type="submit">Save</button>
+        </div>
+
     </form>
 
 </div>
