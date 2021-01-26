@@ -73,7 +73,7 @@ class ArticleController extends Controller
         return redirect(route('articles.show', $article));
     }
 
-    public function validateArticle()
+    public function validateArticle(): array
     {
         $validatedAttributes = request()->validate([
             'title'               => 'required',
