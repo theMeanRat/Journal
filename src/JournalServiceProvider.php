@@ -46,6 +46,12 @@ class JournalServiceProvider extends ServiceProvider
             ], 'assets');
 
             // Publishing migrations
+            if (! class_exists('CreateAuthorsTable')) {
+                $this->publishes([
+                    __DIR__ . '/../database/migrations/create_authors_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_authors_table.php'),
+                ], 'migrations');
+            }
+
             if (! class_exists('CreateArticlesCategoriesTable')) {
                 $this->publishes([
                     __DIR__ . '/../database/migrations/create_article_categories_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_article_categories_table.php'),
@@ -58,12 +64,6 @@ class JournalServiceProvider extends ServiceProvider
                     __DIR__ . '/../database/migrations/create_articles_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_articles_table.php'),
                     // you can add any number of migrations here
                 ], 'migrations');
-            }
-
-            if (! class_exists('CreateAuthorsTable')) {
-                $this->publishes([
-                    __DIR__ . '/../database/migrations/create_authors_table.php.stub' => database_path('migrations/' . date('Y_m-d-His', time()) . '_create_authors_table.php'),
-                ]);
             }
 
             // Publishing config file

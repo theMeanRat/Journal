@@ -41,7 +41,39 @@ class ArticleController extends Controller
         return redirect(route('articles.show', $article));
     }
 
-    public function validateArticle(): array
+    public function edit(Article $article)
+    {
+        // We need to me authenticated to write and store and article.
+        if (! auth()->check()) {
+            abort(403, 'Only authenticated authors can edit articles.');
+        }
+
+        return view('journal::articles.edit', compact('article'));
+    }
+
+    public function add()
+    {
+        // We need to me authenticated to write and store and article.
+        if (! auth()->check()) {
+            abort(403, 'Only authenticated authors can create new articles.');
+        }
+
+        return view('journal::articles.edit');
+    }
+
+    public function update(Article $article)
+    {
+        // We need to me authenticated to write and store and article.
+        if (! auth()->check()) {
+            abort(403, 'Only authenticated authors can edit articles.');
+        }
+
+        $article->update($this->validateArticle());
+
+        return redirect(route('articles.show', $article));
+    }
+
+    public function validateArticle()
     {
         $validatedAttributes = request()->validate([
             'title'               => 'required',

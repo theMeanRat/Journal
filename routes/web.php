@@ -13,3 +13,5 @@ Route::post('/articleCategories', [ArticleCategoryController::class, 'store'])->
 Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
 Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('/articles/edit/{article}', [ArticleController::class, 'edit'])->name('articles.edit');
+Route::get('/articles/add}', [ArticleController::class, 'add'])->name('articles.add');
