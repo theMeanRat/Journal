@@ -17,6 +17,7 @@ class CreateArticleCategoriesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('parent_id');
             $table->string('name');
+            $table->string('slug');
             $table->timestamps();
 
             /* foreign keys */
