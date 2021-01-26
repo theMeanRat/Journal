@@ -20,7 +20,7 @@ class CreateArticleCategoriesTable extends Migration
             $table->timestamps();
 
             /* foreign keys */
-            $table->foreign('parent_id')->references('id')->on('categories');
+            $table->foreign('parent_id')->references('id')->on('article_categories');
         });
     }
 
