@@ -21,7 +21,8 @@ class ArticleCategoryController extends Controller
 
     public function show(ArticleCategory $articleCategory)
     {
-        return view('journal::articleCategories.show', compact('articleCategory'));
+        $articles = $articleCategory->articles();
+        return view('journal::articleCategories.show', compact('articleCategory', 'articles'));
     }
 
     public function update(ArticleCategory $articleCategory)
